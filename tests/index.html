@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spoke Calculator Tests</title>
+<style>
+  :root { --bg: #f7f7f5; --text: #1b1d1f; --ok: #2f6f00; --fail: #b3261e; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #101316; --text: #e8eaec; --ok: #b8f03a; --fail: #ff8a80; } }
+  body { margin: 0; padding: 24px 16px; background: var(--bg); color: var(--text); font: 15px/1.5 system-ui, sans-serif; }
+  ul { list-style: none; padding: 0; } li { padding: 4px 0; }
+  .ok { color: var(--ok); } .fail { color: var(--fail); }
+  code { font-size: .85em; }
+</style>
+</head>
+<body>
+<h1>Spoke calculator tests</h1>
+<p id="sum">Running…</p>
+<ul id="out"></ul>
+<script src="../spoke.js"></script>
+<script src="spoke.test.js"></script>
+</body>
+</html>
