@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spoke Length Calculator | FryePower</title>
+<meta name="description" content="Work out spoke lengths for any hub and rim, including large-flange hub motors: ERD, flange diameter and offset, offset rims, and any cross pattern.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Michroma&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="FryePower home">
+      <svg viewBox="49 48 1065 355" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M86,340 L151,340 L208,241 L304,241 L334,187 L236,187 L285,103 L584,103 L597,136 L567,187 L473,187 L506,125 L443,125 L320,340 L383,340 L440,241 L491,241 L532,340 L598,340 L558,241 L600,241 L659,140 L623,49 L253,49 Z M874,49 L810,49 L749,155 L705,49 L645,49 L714,217 L631,360 L73,360 L50,402 L672,402 Z M1113,49 L898,49 L706,381 L696,402 L911,402 L942,346 L793,346 L820,295 L852,241 L955,241 L986,187 L883,187 L932,103 L1083,103 Z"/></svg>
+      <span class="power" aria-hidden="true">POWER</span>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="../#projects">Projects</a></li>
+        <li class="hide-sm"><a href="../#parts">Parts</a></li>
+        <li><a class="nav-cta" href="../configurator/">Configure<span class="hide-sm"> a pack</span></a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap">
+      <div class="eyebrow">Wheel building tool</div>
+      <h1>Spoke length calculator</h1>
+      <p>Enter your rim and hub measurements to get left and right spoke lengths. Works for small road hubs and big-flange hub motors alike.</p>
+    </div>
+  </section>
+
+  <section class="calc">
+    <div class="wrap layout">
+      <form id="form" class="inputs" novalidate autocomplete="off">
+        <fieldset>
+          <legend>Rim</legend>
+          <div class="row">
+            <label class="field">
+              <span>ERD <small>mm</small></span>
+              <input name="erd" type="number" inputmode="decimal" step="0.5" min="100" value="559">
+            </label>
+            <label class="field">
+              <span>Rim offset to left <small>mm</small></span>
+              <input name="rimOffset" type="number" inputmode="decimal" step="0.5" value="0">
+            </label>
+            <label class="field">
+              <span>Hole stagger <small>mm</small></span>
+              <input name="holeStagger" type="number" inputmode="decimal" step="0.5" min="0" value="0">
+            </label>
+          </div>
+          <p class="hint"><b>Rim offset</b>: an asymmetric rim whose holes sit off-centre toward the left (non-drive) side. <b>Hole stagger</b>: zig-zag drilled holes, each this far from centre toward its own flange.</p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Hub</legend>
+          <div class="sides">
+            <div class="side-col">
+              <h3>Left <small>(non-drive / disc)</small></h3>
+              <label class="field">
+                <span>Flange diameter <small>mm</small></span>
+                <input name="pcdL" type="number" inputmode="decimal" step="0.5" min="1" value="150">
+              </label>
+              <label class="field">
+                <span>Centre to flange <small>mm</small></span>
+                <input name="offL" type="number" inputmode="decimal" step="0.5" min="0" value="37">
+              </label>
+            </div>
+            <div class="side-col">
+              <h3>Right <small>(drive)</small></h3>
+              <label class="field">
+                <span>Flange diameter <small>mm</small></span>
+                <input name="pcdR" type="number" inputmode="decimal" step="0.5" min="1" value="150">
+              </label>
+              <label class="field">
+                <span>Centre to flange <small>mm</small></span>
+                <input name="offR" type="number" inputmode="decimal" step="0.5" min="0" value="37">
+              </label>
+            </div>
+          </div>
+          <label class="check"><input name="sameHub" type="checkbox" checked> Both flanges the same</label>
+          <div class="row">
+            <label class="field">
+              <span>Hub hole diameter <small>mm</small></span>
+              <input name="hubHole" type="number" inputmode="decimal" step="0.1" min="0" value="2.6">
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Lacing</legend>
+          <div class="row">
+            <label class="field">
+              <span>Spokes</span>
+              <select name="spokes">
+                <option>16</option><option>20</option><option>24</option><option>28</option>
+                <option>32</option><option selected>36</option><option>40</option><option>48</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Cross, left</span>
+              <select name="crossL"></select>
+            </label>
+            <label class="field">
+              <span>Cross, right</span>
+              <select name="crossR"></select>
+            </label>
+            <label class="field">
+              <span>Round to</span>
+              <select name="step">
+                <option value="0.5">0.5 mm</option>
+                <option value="1" selected>1 mm</option>
+                <option value="2">2 mm</option>
+              </select>
+            </label>
+          </div>
+        </fieldset>
+      </form>
+
+      <aside class="results" aria-live="polite">
+        <div class="lengths">
+          <div class="len">
+            <span class="lbl">Left</span>
+            <span class="big" id="lenL">–</span>
+            <span class="exact" id="exactL"></span>
+          </div>
+          <div class="len">
+            <span class="lbl">Right</span>
+            <span class="big" id="lenR">–</span>
+            <span class="exact" id="exactR"></span>
+          </div>
+        </div>
+        <p class="err" id="err" hidden></p>
+        <ul class="warn" id="warn" hidden></ul>
+
+        <div class="diagram">
+          <div class="seg" role="group" aria-label="Diagram side">
+            <button type="button" data-view="L">Left</button>
+            <button type="button" data-view="R">Right</button>
+            <button type="button" data-view="B" aria-pressed="true">Both</button>
+          </div>
+          <svg id="wheel" viewBox="-110 -110 220 220" role="img" aria-label="Lacing pattern seen along the axle"></svg>
+          <svg id="section" viewBox="0 0 220 120" role="img" aria-label="Wheel cross-section showing flange offsets and rim hole position"></svg>
+        </div>
+
+        <table class="details">
+          <thead><tr><th></th><th>Left</th><th>Right</th></tr></thead>
+          <tbody id="details"></tbody>
+        </table>
+        <div class="actions">
+          <button type="button" class="btn ghost" id="share">Copy link to this wheel</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="howto">
+    <div class="wrap">
+      <h2>Measuring</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>ERD</h3>
+          <p>Effective rim diameter: the diameter where the spoke ends sit inside the nipples. Thread a nipple onto each of two old spokes, drop them through opposite holes, screw each nipple on until the spoke end is flush with the bottom of its screwdriver slot, pull them tight and measure across the spoke ends. Rim makers usually list ERD.</p>
+        </div>
+        <div class="card">
+          <h3>Flange diameter</h3>
+          <p>Measure centre to centre across two opposite spoke holes. With an odd number of holes per flange, measure edge to edge across adjacent-but-opposite holes and add one hole diameter. On hub motors this is the big one: often 130–220 mm.</p>
+        </div>
+        <div class="card">
+          <h3>Centre to flange</h3>
+          <p>Measure the dropout width (locknut to locknut) and each flange's distance to its locknut. Centre to flange = half the dropout width minus that distance. Measure to the middle of the flange, where the spoke bends.</p>
+        </div>
+        <div class="card">
+          <h3>Checking the result</h3>
+          <p>Lengths are rounded to the nearest step you choose. If the two sides round to different stock lengths, that's normal for a dished wheel. Check one spoke in the wheel before ordering a full set: it should end flush with the top of the nipple head.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="mini" id="mini" aria-hidden="true"><span>L <b id="miniL">–</b></span><span>R <b id="miniR">–</b></span></div>
+
+<footer>
+  <div class="wrap">&copy; <span id="yr">2026</span> FryePower. Check one spoke before you order a full set.</div>
+</footer>
+
+<script src="spoke.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
