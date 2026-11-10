@@ -1,10 +1,10 @@
 # Publish the spoke calculator into the FryePower website repo (GitHub Pages).
 #
 # On every push to main: run the tests, then copy the page files into the website repo's
-# spoke-calculator/ folder, so the site serves it at fryepower.com/spoke-calculator/.
+# spoke-length-calculator/ folder, so the site serves it at fryepower.com/spoke-length-calculator/.
 #
 # One-time setup in THIS repo (Settings > Secrets and variables > Actions):
-#   Variable  WEBSITE_REPO   the website repo, e.g. DubPFrye/ebike_website
+#   Variable  WEBSITE_REPO   the website repo, e.g. DubPFrye/fryepower-com
 #   Secret    WEBSITE_TOKEN  a fine-grained personal access token with
 #                            "Contents: Read and write" on the website repo only
 # Until both are set, the workflow tests but skips the publish step.
@@ -55,13 +55,13 @@ jobs:
       - name: Copy and push
         if: steps.cfg.outputs.publish == 'true'
         run: |
-          rm -rf site/spoke-calculator
-          mkdir site/spoke-calculator
-          cp index.html styles.css app.js spoke.js site/spoke-calculator/
+          rm -rf site/spoke-length-calculator
+          mkdir site/spoke-length-calculator
+          cp index.html styles.css app.js spoke.js site/spoke-length-calculator/
           cd site
           git config user.name "spoke-calculator-publish[bot]"
           git config user.email "spoke-calculator-publish@users.noreply.github.com"
-          git add spoke-calculator
+          git add spoke-length-calculator
           if git diff --cached --quiet; then
             echo "spoke calculator unchanged"
           else

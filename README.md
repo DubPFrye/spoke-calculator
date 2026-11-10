@@ -3,7 +3,7 @@
 Works out left and right spoke lengths for a wheel from the hub and rim measurements.
 Handles small road hubs and large-flange hub motors, offset (asymmetric) rims, zig-zag
 drilled rims, and a different cross pattern on each side. Published on
-[fryepower.com/spoke-calculator/](https://fryepower.com/spoke-calculator/).
+[fryepower.com/spoke-length-calculator/](https://fryepower.com/spoke-length-calculator/).
 
 Plain HTML, CSS and JavaScript: no build step and no package manager.
 
@@ -59,9 +59,9 @@ placing both holes as 3D points and measuring between them, not from `spoke.js` 
 ## Publishing
 
 `.github/workflows/publish.yml` runs the tests on every push to `main` and copies `index.html`,
-`styles.css`, `app.js` and `spoke.js` into the website repo's `spoke-calculator/` folder. It needs
+`styles.css`, `app.js` and `spoke.js` into the website repo's `spoke-length-calculator/` folder. It needs
 the `WEBSITE_REPO` variable and `WEBSITE_TOKEN` secret set in this repo (see the comments at the
-top of the workflow); without them it only tests. Don't edit `spoke-calculator/` in the website
+top of the workflow); without them it only tests. Don't edit `spoke-length-calculator/` in the website
 repo by hand, because the next publish overwrites it.
 
 ## Ideas
